@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+output_folder_id: example_output
+sample_name: xH10
+species: hg19
+job_name: example_job
+cellranger_refdata: /projects/ps-yeolab/software/cellranger/cellranger_refdata
+fastq_path: /home/bay001/projects/codebase/cellranger_cwl/testdata/cellranger_dataset_DEMO/fastqs/

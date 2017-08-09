@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+
+###############################################################################
+#
+# Collaborator Name  : DRYLAB
+#
+# Experiment title   : TEMPLATE FOR A CWL WORKFLOW WITH SCATTER/GATHER LOOPING
+#
+#
+###############################################################################
+
+
+job_name: example_job
+species: hg19
+cellranger_refdata: /projects/ps-yeolab/software/cellranger/cellranger_refdata
+fastq_path: /home/bay001/projects/codebase/cellranger_cwl/testdata/cellranger_dataset_DEMO/fastqs/
+sample_ids:
+  - xH09
+  - xH10
+
