@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+
+set -x
+
+
+# cellranger3 SPECIES
+
+read -r -d '' USAGE<<'EOUSAGE'
+This is cellranger3 - running cellranger aggr 2.0.0 on all samples
+==================================================================
+Usage :
+  cellranger3 SPECIES
+
+Parameters:
+  SPECIES: either hg19 or mm10
+  
+EOUSAGE
+
+
+
+if [ $# -eq 0 ]
+then
+    echo
+    echo "$USAGE"
+    echo
+else
+
+OUTPUTFOLDERID=AGGREGATE
+SPECIES=$1
+
+#mkdir -p results/temp
+cd results/temp
+
+echo
+echo ===============================
+echo running cellranger aggr v 2.0.0
+echo cellranger aggr \
+  --id ${OUTPUTFOLDERID} \
+  --csv=../../aggregate.csv \
+  --normaliz=mapped \
+  --uiport=3600
+echo ===============================
+echo
+
+cellranger aggr \
+  --id ${OUTPUTFOLDERID} \
+  --csv=../../aggregate.csv \
+  --normaliz=mapped \
+  --uiport=3600
+
+echo
+echo ========================
+echo "finished cellranger3"
+echo ========================
+echo
+
+cd ../..
+
+#mkdir -p results/summary
+#mkdir -p results/cloupe
+#mkdir -p results/filteredcountscsv
+
+# copy web summart page
+CELLRANGER_SUMMARY="results/temp/${OUTPUTFOLDERID}/outs/web_summary.html"
+GRANATUM_SUMMARY="results/summary/${OUTPUTFOLDERID}.summary.html"
+echo cp  ${CELLRANGER_SUMMARY} ${GRANATUM_SUMMARY} 
+cp ${CELLRANGER_SUMMARY} ${GRANATUM_SUMMARY} 
+
+# copy loupe data file
+CELLRANGER_CLOUPE="results/temp/${OUTPUTFOLDERID}/outs/cloupe.cloupe"
+GRANATUM_CLOUPE="results/cloupe/${OUTPUTFOLDERID}.cloupe"
+echo cp ${CELLRANGER_CLOUPE} ${GRANATUM_CLOUPE} 
+cp ${CELLRANGER_CLOUPE} ${GRANATUM_CLOUPE} 
+
+# make granatum expression csv
+CELLRANGER_FILTEREDFOLDER="results/temp/${OUTPUTFOLDERID}/outs/filtered_gene_bc_matrices_mex/"
+GRANATUM_EXPRESSIONCSV="results/filteredcountscsv/${OUTPUTFOLDERID}_expression.csv"
+cellranger mat2csv ${CELLRANGER_FILTEREDFOLDER} ${GRANATUM_EXPRESSIONCSV} --genome ${SPECIES}
+
+# make granatum metadata csv
+CELLRANGER_BARCODESTSV="results/temp/${OUTPUTFOLDERID}/outs/filtered_gene_bc_matrices_mex/${SPECIES}/barcodes.tsv"
+GRANATUM_METADATACSV="results/filteredcountscsv/${OUTPUTFOLDERID}_metadata.csv"
+echo "CELL_ID,SAMPLE_ID" > ${GRANATUM_METADATACSV}
+sed "s/$/,${OUTPUTFOLDERID}/" "${CELLRANGER_BARCODESTSV}" >> ${GRANATUM_METADATACSV}
+
+echo
+echo =============================================
+echo "finished cellranger3 for species" ${SPECIES}
+echo =============================================
+echo
+
+
+
+fi
+
+

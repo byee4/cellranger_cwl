@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+
+set -x
+
+
+# cellranger4 JOBNAME
+
+read -r -d '' USAGE<<'EOUSAGE'
+This is cellranger4 - zipping all outputs into one zip file
+===========================================================
+Usage :
+  cellranger4 JOBNAME
+
+Parameters:
+  JOBNAME: jobname to use for the logs in results/CELLRANGER1-JOB-COPY.${JOBNAME}.txt
+  
+EOUSAGE
+
+
+
+JOBNAME=$1
+
+cd results
+zip -r ${JOBNAME}_cellranger-2.0.0_results.zip CELLRANGER1* analysis summary cloupe filteredcountscsv
+#zip -r ${JOBNAME}_cellranger-2.0.0_summary_and_cloupe.zip CELLRANGER1* summary cloupe
+cd ..
+
+echo
+echo =============================================
+echo "finished cellranger4 for JOBNAME" ${JOBNAME}
+echo =============================================
+echo
+

@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+
+# cellranger2 OUTPUTFOLDERID FASTQSSAMPLENAME SPECIES JOBNAME
+
+read -r -d '' USAGE<<'EOUSAGE'
+This is cellranger2 - structuring outputs of cellranger count for one sample
+============================================================================
+Usage :
+  cellranger2 OUTPUTFOLDERID FASTQSSAMPLENAME SPECIES
+
+Parameters:
+  OUTPUTFOLDERID: an ID string used to name a folder for all outputs for this run
+  FASTQSSAMPLENAME:  a name for one of the sample to process, must match with what was used to name the fastqs for that sample
+  SPECIES: either hg19 or mm10
+  JOBNAME: jobname to use for the logs in results/CELLRANGER1-JOB-COPY.${JOBNAME}.txt
+  
+EOUSAGE
+
+
+if [ $# -eq 0 ]
+then
+    echo
+    echo "$USAGE"
+    echo
+else
+
+OUTPUTFOLDERID=$1
+FASTQSSAMPLENAME=$2
+SPECIES=$3
+JOBNAME=$4
+
+mkdir -p results/analysis
+mkdir -p results/summary
+mkdir -p results/cloupe
+mkdir -p results/filteredcountscsv
+
+
+# copy analysis folder
+CELLRANGER_ANALYSIS="results/temp/${OUTPUTFOLDERID}/outs/analysis"
+GRANATUM_ANALYSIS="results/analysis/${OUTPUTFOLDERID}"
+echo cp -r ${CELLRANGER_ANALYSIS}/* ${GRANATUM_ANALYSIS}/*
+cp -r ${CELLRANGER_ANALYSIS} ${GRANATUM_ANALYSIS} 
+
+# copy web summary page
+CELLRANGER_SUMMARY="results/temp/${OUTPUTFOLDERID}/outs/web_summary.html"
+GRANATUM_SUMMARY="results/summary/${OUTPUTFOLDERID}.summary.html"
+echo cp  ${CELLRANGER_SUMMARY} ${GRANATUM_SUMMARY} 
+cp ${CELLRANGER_SUMMARY} ${GRANATUM_SUMMARY} 
+
+# copy loupe data file
+CELLRANGER_CLOUPE="results/temp/${OUTPUTFOLDERID}/outs/cloupe.cloupe"
+GRANATUM_CLOUPE="results/cloupe/${OUTPUTFOLDERID}.cloupe"
+echo cp ${CELLRANGER_CLOUPE} ${GRANATUM_CLOUPE} 
+cp ${CELLRANGER_CLOUPE} ${GRANATUM_CLOUPE} 
+
+# make granatum expression csv
+CELLRANGER_FILTEREDFOLDER="results/temp/${OUTPUTFOLDERID}/outs/filtered_gene_bc_matrices/"
+GRANATUM_EXPRESSIONCSV="results/filteredcountscsv/${OUTPUTFOLDERID}_expression.csv"
+cellranger mat2csv ${CELLRANGER_FILTEREDFOLDER} ${GRANATUM_EXPRESSIONCSV} --genome ${SPECIES}
+
+# make granatum metadata csv
+CELLRANGER_BARCODESTSV="results/temp/${OUTPUTFOLDERID}/outs/filtered_gene_bc_matrices/${SPECIES}/barcodes.tsv"
+GRANATUM_METADATACSV="results/filteredcountscsv/${OUTPUTFOLDERID}_metadata.csv"
+# create first line of csv with these 2 column titles
+echo "CELL_ID,SAMPLE_ID" > ${GRANATUM_METADATACSV}
+# add a comma separated value in second column of each row to show sampleid
+# sed replaces the end of line with ",${OUTPUTFOLDERID}"
+sed "s/$/,${OUTPUTFOLDERID}/" "${CELLRANGER_BARCODESTSV}" >> ${GRANATUM_METADATACSV}
+
+echo
+echo =====================================================
+echo "finished cellranger2 for sample" ${FASTQSSAMPLENAME}
+echo =====================================================
+echo
+
+fi
+
+exit 0

@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+
+# cellranger1 OUTPUTFOLDERID FASTQSSAMPLENAME SPECIES JOBNAME
+
+
+read -r -d '' USAGE<<'EOUSAGE'
+This is cellranger1 - running cellranger count 2.0.0 on one sample
+==================================================================
+Usage :
+  cellranger1 OUTPUTFOLDERID FASTQSSAMPLENAME SPECIES
+
+Parameters:
+  OUTPUTFOLDERID: an ID string used to name a folder for all outputs for this run
+  FASTQSSAMPLENAME:  a name for one of the sample to process, must match with what was used to name the fastqs for that sample
+  SPECIES: either hg19 or mm10
+  JOBNAME: jobname to use for the logs in results/CELLRANGER1-JOB-COPY.${JOBNAME}.txt
+  
+EOUSAGE
+
+
+
+if [ $# -eq 0 ]
+then
+    echo
+    echo "$USAGE"
+    echo
+else
+
+OUTPUTFOLDERID=$1
+FASTQSSAMPLENAME=$2
+SPECIES=$3
+$JOBNAME=$4
+
+
+
+mkdir -p results/temp
+touch results/CELLRANGER1-JOB-COPY.${JOBNAME}.txt
+touch results/CELLRANGER1-VERSION-2.0.0
+touch results/CELLRANGER1-JOB-LOG.txt
+
+echo cd results/temp
+cd results/temp
+
+echo
+echo ================================
+echo running cellranger count v 2.0.0
+echo cellranger count \
+  --id=${OUTPUTFOLDERID} \
+  --sample=${FASTQSSAMPLENAME} \
+  --fastqs=../../fastqs \
+  --transcriptome=${CELLRANGER_REFDATA}/refdata-cellranger-${SPECIES}-1.2.0 \
+  --nopreflight \
+  --uiport=3600
+echo ===============================
+echo
+
+cellranger count \
+  --id=${OUTPUTFOLDERID} \
+  --sample=${FASTQSSAMPLENAME} \
+  --fastqs=../../fastqs \
+  --transcriptome=${CELLRANGER_REFDATA}/refdata-cellranger-${SPECIES}-1.2.0 \
+  --nopreflight \
+  --uiport=3600
+
+echo cd -
+cd -
+
+echo
+echo =====================================================
+echo "finished cellranger1 for sample" ${FASTQSSAMPLENAME}
+echo "temp folder is: results/temp/${OUTPUTFOLDERID} "
+echo =====================================================
+echo
+
+
+fi
+
+exit 0

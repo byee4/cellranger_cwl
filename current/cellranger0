@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+for FASTQ_FILE in SI-GA-??_?/*.fastq.gz 
+do
+  FASTQ_NODIR=${FASTQ_FILE/*\//}
+  FASTQ_NOEXT=${FASTQ_NODIR/.*/}
+  SAMPLEID=${FASTQ_NOEXT/_S??_L???_R?_???/}
+  echo ${SAMPLEID}
+done
