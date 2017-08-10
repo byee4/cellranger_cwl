@@ -10,10 +10,30 @@
 #
 ###############################################################################
 
+investigator: iachaim
+study_title: Cortical MECP2vsWT
+study_date: 20170810
+
+study_publication: NA
+# IPSC-CVB Mouse_cells CosM6 HepG2 K562
+cells_used: IPSC-CVB
+neuron_induction_protocol: cortical organoid
+# 
+plate_well_slide_format: 6-well plate
+# ??
+supplies_list: lots of stuff
+# 10x dropseq surecell seqwell c1
+assay_used: 10x
+# chem_v1 chem_v2
+assay_protocol_details: chem_v2
+# won't change
+software_packages_used: cellranger
+# hg19 mm10 
 species: hg19
 cellranger_refdata: /projects/ps-yeolab/software/cellranger/cellranger_refdata
 fastq_path: /home/bay001/projects/codebase/cellranger_cwl/testdata/cellranger_dataset_DEMO/fastqs/
-# sample_ids:
-#   - xH09
-#   - xH10
-
+sample_names: 
+  - WT1
+  - WT2
+  - MECP1
+  - MECP2

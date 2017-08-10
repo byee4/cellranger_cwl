@@ -14,16 +14,29 @@ requirements:
 
 inputs:
 
+  # essential to run pipeline
+
   species:
     type: string
-  # job_name:
-  #   type: string
   cellranger_refdata:
     type: string
   fastq_path:
     type: string
-  # sample_ids:
-  #   type: string[]
+
+  # other metadata
+
+  investigator: string
+  study_title: string
+  study_date: string
+  study_publication: string
+  cells_used: string
+  neuron_induction_protocol: string
+  plate_well_slide_format: string
+  supplies_list: string
+  assay_used: string
+  assay_protocol_details: string
+  software_packages_used: string
+
 
 outputs:
   sample_ids_list:
