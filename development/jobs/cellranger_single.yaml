@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-output_folder_id: example_output
 sample_name: xH10
 species: hg19
 job_name: example_job

@@ -10,12 +10,10 @@
 #
 ###############################################################################
 
-
-job_name: example_job
 species: hg19
 cellranger_refdata: /projects/ps-yeolab/software/cellranger/cellranger_refdata
 fastq_path: /home/bay001/projects/codebase/cellranger_cwl/testdata/cellranger_dataset_DEMO/fastqs/
-sample_ids:
-  - xH09
-  - xH10
+# sample_ids:
+#   - xH09
+#   - xH10
 

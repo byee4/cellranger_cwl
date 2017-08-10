@@ -16,18 +16,18 @@ inputs:
     type: string
     inputBinding:
       position: 2
-  job_name:
-    type: string
-    inputBinding:
-      position: 3
+  # job_name:
+  #   type: string
+  #   inputBinding:
+  #     position: 3
   cellranger_refdata:
     type: string
     inputBinding:
-      position: 4
+      position: 3
   fastq_path:
     type: string
     inputBinding:
-      position: 5
+      position: 4
 outputs:
   single_analysis_tar:
     type: File

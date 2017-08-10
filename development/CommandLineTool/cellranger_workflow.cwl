@@ -10,21 +10,25 @@ requirements:
   - class: SubworkflowFeatureRequirement
   - class: ScatterFeatureRequirement
   - class: InlineJavascriptRequirement
+  - class: ShellCommandRequirement
 
 inputs:
 
   species:
     type: string
-  job_name:
-    type: string
+  # job_name:
+  #   type: string
   cellranger_refdata:
     type: string
   fastq_path:
     type: string
-  sample_ids:
-    type: string[]
+  # sample_ids:
+  #   type: string[]
 
 outputs:
+  sample_ids_list:
+    type: string[]
+    outputSource: collect_ids/sample_ids
 
   single_analysis_tar:
 
@@ -109,15 +113,22 @@ outputs:
 
 steps:
 
+  collect_ids:
+    run: collect_samples.cwl
+    in:
+      fastq_path: fastq_path
+    out:
+      - sample_ids
+
   scattered:
 
     run: cellranger_single.cwl
     in:
       species: species
-      job_name: job_name
+      # job_name: job_name
       fastq_path: fastq_path
       cellranger_refdata: cellranger_refdata
-      sample_name: sample_ids
+      sample_name: collect_ids/sample_ids
 
     # scattering with an input of type which is array of type for input of scattered step
     #############

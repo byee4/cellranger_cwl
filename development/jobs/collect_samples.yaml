@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fastq_path: /home/bay001/projects/codebase/cellranger_cwl/testdata/cellranger_dataset_DEMO/fastqs/
