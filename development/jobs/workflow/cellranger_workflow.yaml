@@ -1,0 +1,87 @@
+###############################################################################
+#
+# Collaborator Name  : DRYLAB
+#
+# Experiment title   : TEMPLATE FOR A CWL WORKFLOW WITH SCATTER/GATHER LOOPING
+#
+#
+###############################################################################
+
+study_title: Cortical MECP2vsWT
+
+# Required by Metadata Database
+study_date: 8/10/2017
+study_publication: NA
+cells_used: IPSC-CVB
+neuron_induction_protocol: cortical organoid
+plate_well_slide_format: 6-well plate
+supplies_list: lots of stuff
+assay_used: 10x
+assay_protocol_details: chem_v2
+software_packages_used: cellranger
+
+# Required by IGM Manifest
+date: 8/10/2017
+institute: UCSD
+pi_name: Gene yeo
+pi_email: geneyeo@ucsd.edu
+member_of_mcc: Yes
+member_of_drc: Yes
+contact_name: iachaim
+contact_email: iachaim@ucsd.edu
+contact_phone_number: 858-345-1234
+index_number_or_po: va grant
+sequencing_platform: hiseq4000
+type_of_run: single cell RNASEQ
+
+# IGM Manifest Parameters
+template_xlsx:
+  class: File
+  path: /home/bay001/projects/codebase/cellranger_cwl/testdata/excel_file_examples/template.xlsx
+filled_expt_xlsx: FILLED_EXPT_IGM.xlsx
+filled_sample_xlsx: FILLED_SAMPLE_IGM.xlsx
+
+
+
+
+# TODO: implement
+type_of_run: PE
+number_of_cycles: "100"
+
+po_number: VA grant
+
+
+# hg19 mm10 
+species: hg19
+cellranger_refdata: /projects/ps-yeolab/software/cellranger/cellranger_refdata
+fastq_path: /home/bay001/projects/codebase/cellranger_cwl/testdata/cellranger_dataset_DEMO/fastqs/
+# Won't actually use this in the pipeline, it will grab all samples
+sample_names: 
+  - WT1:
+      uid: CHAIM1
+      size: 100
+      concentration: 10
+      volume: 30
+      quantification: Qubit
+      library_prep: 10X chromium V2
+  - WT2:
+      uid: CHAIM2
+      size: 100
+      concentration: 10
+      volume: 30
+      quantification: Qubit
+      library_prep: 10X chromium V2
+  - MECP1:
+      uid: CHAIM3
+      size: 100
+      concentration: 10
+      volume: 30
+      quantification: Qubit
+      library_prep: 10X chromium V2
+  - MECP2:
+      uid: CHAIM4
+      size: 100
+      concentration: 10
+      volume: 30
+      quantification: Qubit
+      library_prep: 10X chromium V2

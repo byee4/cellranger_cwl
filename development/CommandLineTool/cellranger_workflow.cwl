@@ -15,7 +15,6 @@ requirements:
 inputs:
 
   # essential to run pipeline
-
   species:
     type: string
   cellranger_refdata:
@@ -23,9 +22,27 @@ inputs:
   fastq_path:
     type: string
 
+  # template
+  template_xlsx: File
+  filled_expt_xlsx: string
+  filled_sample_xlsx: string
+
+  # IGM manifest metadata
+  date: string
+  institute: string
+  pi_name: string
+  pi_email: string
+  member_of_mcc: string
+  member_of_drc: string
+  contact_name: string
+  contact_email: string
+  contact_phone_number: string
+  index_number_or_po: string
+  sequencing_platform: string
+  type_of_run: string
+
   # other metadata
 
-  investigator: string
   study_title: string
   study_date: string
   study_publication: string
@@ -37,8 +54,14 @@ inputs:
   assay_protocol_details: string
   software_packages_used: string
 
+  sample_names: Any
 
 outputs:
+
+  final_igm_manifest:
+    type: File
+    outputSource: write_sample_data/filled_sample_xlsx
+
   sample_ids_list:
     type: string[]
     outputSource: collect_ids/sample_ids
@@ -125,6 +148,41 @@ outputs:
     outputSource: aggregate/aggregate_moleculeinfo
 
 steps:
+  write_expt_data:
+    run: string2igm_expt.cwl
+    in:
+      date: date
+      institute: institute
+      pi_name: pi_name
+      pi_email: pi_email
+      member_of_mcc: member_of_mcc
+      member_of_drc: member_of_drc
+      contact_name: contact_name
+      contact_email: contact_email
+      contact_phone_number: contact_phone_number
+      index_number_or_po: index_number_or_po
+      sequencing_platform: sequencing_platform
+      type_of_run: type_of_run
+      template_xlsx: template_xlsx
+      filled_xlsx: filled_expt_xlsx
+    out:
+      - filled_expt_xlsx
+
+  get_sample_data_string:
+    run: string2igm_sample_string.cwl
+    in:
+      sample_names: sample_names
+    out:
+      - samples_string
+
+  write_sample_data:
+    run: string2igm_sample.cwl
+    in:
+      inputstring: get_sample_data_string/samples_string
+      xlsx: write_expt_data/filled_expt_xlsx
+      filled_xlsx: filled_sample_xlsx
+    out:
+      - filled_sample_xlsx
 
   collect_ids:
     run: collect_samples.cwl
