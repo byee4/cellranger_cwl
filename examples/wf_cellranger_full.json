@@ -1,0 +1,30 @@
+#!/usr/bin/env cellranger-runner
+{
+  "aggr_run_id": "aggregated_01",
+  "samples": [
+    {
+      "run_id": "run_01",
+      "sample_id": "sample_01",
+      "fastq_dir": {
+        "path": "inputs/fastqs",
+        "class": "Directory"
+      },
+      "transcriptome": {
+        "path": "inputs/refdata-cellranger-hg19-1.2.0",
+        "class": "Directory"
+      }
+    },
+    {
+      "run_id": "run_02",
+      "sample_id": "sample_02",
+      "fastq_dir": {
+        "path": "inputs/fastqs",
+        "class": "Directory"
+      },
+      "transcriptome": {
+        "path": "inputs/refdata-cellranger-hg19-1.2.0",
+        "class": "Directory"
+      }
+    }
+  ]
+}

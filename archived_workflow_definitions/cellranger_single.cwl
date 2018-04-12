@@ -5,7 +5,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 
-baseCommand: [/home/bay001/processing_scripts/codebase/cellranger_cwl/development/CommandLineTool/cellranger_single.sh]
+baseCommand: [cellranger_single.sh]
 
 inputs:
   sample_name:

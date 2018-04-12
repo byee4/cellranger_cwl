@@ -45,7 +45,7 @@ cd results/temp
 
 echo
 echo ================================
-echo running cellranger count v 2.0.0 what
+echo running cellranger count v 2.0.0
 echo cellranger count \
   --id=${FASTQSSAMPLENAME} \
   --sample=${FASTQSSAMPLENAME} \

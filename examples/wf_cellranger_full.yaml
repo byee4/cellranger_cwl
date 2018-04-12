@@ -1,0 +1,33 @@
+#!/usr/bin/env cellranger-runner
+
+aggr_run_id: aggregated
+aggr_norm_method: "mapped"
+
+samples:
+  -
+    run_id: one
+    sample_id: one_s
+    fastq_dir:
+      class: Directory
+      path: inputs/fastqs
+    transcriptome:
+      class: Directory
+      path: inputs/refdata-cellranger-hg19-1.2.0
+  -
+    run_id: two
+    sample_id: two_s
+    fastq_dir:
+      class: Directory
+      path: inputs/fastqs
+    transcriptome:
+      class: Directory
+      path: inputs/refdata-cellranger-hg19-1.2.0
+  -
+    run_id: three
+    sample_id: three_s
+    fastq_dir:
+      class: Directory
+      path: inputs/fastqs
+    transcriptome:
+      class: Directory
+      path: inputs/refdata-cellranger-hg19-1.2.0

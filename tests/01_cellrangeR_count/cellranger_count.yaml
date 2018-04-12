@@ -1,0 +1,11 @@
+#!/usr/bin/env cellranger_count.cwl
+
+run_id: tiny_01
+
+fastqs:
+  class: Directory
+  path: inputs/fastqs
+
+transcriptome:
+  class: Directory
+  path: inputs/refdata-cellranger-hg19-1.2.0

@@ -1,0 +1,11 @@
+#!/usr/bin/env cellranger_create_aggregate_file.cwl
+
+output: aggregate.csv
+
+h5_basedirs:
+  -
+    class: Directory
+    path: inputs/tiny_01
+  -
+    class: Directory
+    path: inputs/tiny_02

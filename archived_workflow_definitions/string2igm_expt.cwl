@@ -5,7 +5,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 
 
-baseCommand: [python, /home/bay001/projects/codebase/cellranger_cwl/development/CommandLineTool/string2igm_expt.py]
+baseCommand: [string2igm_expt.py]
 
 inputs:
   date:

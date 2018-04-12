@@ -23,11 +23,13 @@ inputs:
     type: string
 
   # template
+
   template_xlsx: File
   filled_expt_xlsx: string
   filled_sample_xlsx: string
 
   # IGM manifest metadata
+
   date: string
   institute: string
   pi_name: string

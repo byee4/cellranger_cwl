@@ -1,0 +1,7 @@
+#!/usr/bin/env cellranger_aggregate.cwl
+
+run_id: aggregated
+
+csv:
+  class: File
+  path: inputs/aggregate.csv
