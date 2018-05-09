@@ -11,11 +11,27 @@ requirements:
 inputs:
   investigator:
     type: string
-  run_date:
+  pi_name:
+    type: string
+  sequencing_center:
+    type: string
+  experiment_nickname:
+    type: string
+  experiment_start_date:
+    type: string
+  experiment_summary:
+    type: string
+  sequencing_date:
+    type: string
+  processing_date:
     type: string
   assay_protocol:
     type: string
-  aggr_run_id:
+  protocol_description:
+    type: string
+  organism:
+    type: string
+  aggr_expt_id:
     type: string
   aggr_norm_method:
     type: string
@@ -26,7 +42,7 @@ inputs:
       items:
         type: record
         fields:
-          run_id:
+          expt_id:
             type: string
           sample_id:
             type: string?
@@ -34,6 +50,17 @@ inputs:
             type: Directory
           transcriptome:
             type: Directory
+          characteristics:
+            type:
+              type: array
+              items:
+                type: record
+                name: characteristics
+                fields:
+                  name:
+                    type: string
+                  value:
+                    type: string
 
 outputs:
   output_dir:
@@ -47,7 +74,7 @@ steps:
     in:
       samples: samples
     out:
-      - run_ids
+      - expt_ids
       - sample_ids
       - fastq_dirs
       - transcriptome_dirs
@@ -55,14 +82,14 @@ steps:
   step_cellranger_count:
     run: cellranger_count.cwl
     scatter:
-      - run_id
-      # - sample_id
+      - expt_id
+      - sample_id
       - fastqs
       - transcriptome
     scatterMethod: dotproduct
     in:
-      run_id: step_parse_samples/run_ids
-      # sample: step_parse_samples/sample_ids
+      expt_id: step_parse_samples/expt_ids
+      sample_id: step_parse_samples/sample_ids
       fastqs: step_parse_samples/fastq_dirs
       transcriptome: step_parse_samples/transcriptome_dirs
     out:
@@ -71,7 +98,7 @@ steps:
   step_cellranger_aggr:
     run: cellranger_aggr.cwl
     in:
-      run_id: aggr_run_id
+      expt_id: aggr_expt_id
       normalize: aggr_norm_method
       h5_basedirs: step_cellranger_count/output
     out:

@@ -25,7 +25,7 @@ arguments: [
 ]
 
 inputs:
-  run_id:
+  expt_id:
     type: string
     inputBinding:
       prefix: --id
@@ -41,11 +41,13 @@ outputs:
   output_dir:
     type: Directory
     outputBinding:
-      glob: "$(inputs.run_id)"
+      glob: "$(inputs.expt_id)"
   aggregate_csv:
     type: File
     outputBinding:
       glob: aggregate.csv
 
 doc: |
-  The javascript entry creates the aggregate.csv manifest.
+  The javascript entry creates the aggregate.csv manifest. The commandlinetool
+  calls cellranger aggregate based on the aggregate.csv, which was created
+  from the list of h5_basedirs specified.

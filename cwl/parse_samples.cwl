@@ -16,7 +16,7 @@ inputs:
       items:
         type: record
         fields:
-          run_id:
+          expt_id:
             type: string
           sample_id:
             type: string?
@@ -24,10 +24,21 @@ inputs:
             type: Directory
           transcriptome:
             type: Directory
+          characteristics:
+            type:
+              type: array
+              items:
+                type: record
+                name: characteristics
+                fields:
+                  name:
+                    type: string
+                  value:
+                    type: string
 
 outputs:
 
-  run_ids:
+  expt_ids:
     type: string[]
   sample_ids:
     type: string[]
@@ -38,19 +49,19 @@ outputs:
 
 expression: |
    ${
-      var run_ids = [];
+      var expt_ids = [];
       var sample_ids = [];
       var fastq_dirs = [];
       var transcriptome_dirs = [];
 
       for (var i=0; i<inputs.samples.length; i++) {
-        run_ids.push(inputs.samples[i].run_id);
+        expt_ids.push(inputs.samples[i].expt_id);
         sample_ids.push(inputs.samples[i].sample_id);
         fastq_dirs.push(inputs.samples[i].fastq_dir);
         transcriptome_dirs.push(inputs.samples[i].transcriptome);
       }
       return {
-        'run_ids':run_ids,
+        'expt_ids':expt_ids,
         'sample_ids':sample_ids,
         'fastq_dirs':fastq_dirs,
         'transcriptome_dirs':transcriptome_dirs,

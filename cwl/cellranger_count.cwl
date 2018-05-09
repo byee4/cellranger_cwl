@@ -16,7 +16,7 @@ requirements:
 baseCommand: [cellranger, count]
 
 inputs:
-  run_id:
+  expt_id:
     type: string
     inputBinding:
       prefix: --id
@@ -47,4 +47,4 @@ outputs:
   output:
     type: Directory
     outputBinding:
-      glob: "$(inputs.run_id)"
+      glob: "$(inputs.expt_id)"
