@@ -25,7 +25,7 @@ arguments: [
 ]
 
 inputs:
-  expt_id:
+  aggr_nickname:
     type: string
     inputBinding:
       prefix: --id
@@ -41,7 +41,7 @@ outputs:
   output_dir:
     type: Directory
     outputBinding:
-      glob: "$(inputs.expt_id)"
+      glob: "$(inputs.aggr_nickname)"
   aggregate_csv:
     type: File
     outputBinding:

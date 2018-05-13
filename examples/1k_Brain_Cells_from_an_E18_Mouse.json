@@ -1,0 +1,36 @@
+#!/usr/bin/env cellranger-runner
+{
+  "investigator": "test",
+  "pi_name": "Gene Yeo",
+  "contact_email": "yeolab@ucsd.edu",
+  "sequencing_center": "Sequencing core (ie. IGM)",
+  "experiment_nickname": "test",
+  "experiment_start_date": "2018-01-01",
+  "experiment_summary": "The `summary` section of a GEO submission template",
+  "sequencing_date": "2018-01-01",
+  "processing_date": "2018-01-01",
+  "assay_protocol": "chemV2",
+  "protocol_description": "Overall experimental protocol description",
+  "aggr_nickname": "aggregated_01",
+  "organism": "Human (HSA)",
+  "samples": [
+    {
+      "library_nickname": "sample_01",
+      "library_prep": "PolyA select",
+      "sample_id": "neurons_900",
+      "fastq_dir": {
+        "path": "inputs/neurons_900_fastqs",
+        "class": "Directory"
+      },
+      "transcriptome": {
+        "path": "refdata-cellranger-mm10-1.2.0",
+        "class": "Directory"
+      },
+      "instrument_model": "Illumina HiSeq 2500",
+      "read1_length": 26,
+      "read2_length": 98,
+      "expect_cells": 2000,
+      "characteristics": []
+    }
+  ]
+}

@@ -16,7 +16,7 @@ requirements:
 baseCommand: [cellranger, count]
 
 inputs:
-  expt_id:
+  library_nickname:
     type: string
     inputBinding:
       prefix: --id
@@ -24,6 +24,10 @@ inputs:
     type: string?
     inputBinding:
       prefix: --sample
+  expect_cells:
+    type: int
+    inputBinding:
+      prefix: --expect-cells
   fastqs:
     type: Directory
     inputBinding:
@@ -37,14 +41,14 @@ inputs:
     default: true
     inputBinding:
       prefix: --nopreflight
-  uiport:
-    type: int
-    default: 3600
-    inputBinding:
-      prefix: --uiport
+  # uiport:
+  #   type: int
+  #   default: 3600
+  #   inputBinding:
+  #     prefix: --uiport
 
 outputs:
   output:
     type: Directory
     outputBinding:
-      glob: "$(inputs.expt_id)"
+      glob: "$(inputs.library_nickname)"
